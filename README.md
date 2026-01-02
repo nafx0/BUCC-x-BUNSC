@@ -1,51 +1,126 @@
-# BUNSC Website
+# BRAC University Natural Sciences Club (BUNSC)
 
-Production-ready single-page website for the BRAC University Natural Sciences Club (BUNSC). Built as a fast, static React application with a modern component library and a themeable design system.
+![BUNSC Hero](src/assets/hero-nature.jpg)
+
+A premium, interactive digital experience for the BRAC University Natural Sciences Club. This project bridges the gap between scientific curiosity and modern web design, featuring a "Living Field" 3D environment, organic minimalism, and a seamless user experience.
+
+## 🌿 Project Vision
+
+**"Where Ideas Take Root."**
+
+This website serves as the digital headquarters for BUNSC, designed to:
+- **Immerse** visitors in a "Living Field of Curiosity" (interactive 3D hero).
+- **Showcase** the club's legacy through events, publications, and media.
+- **Connect** inquisitive minds with the broader scientific community.
+
+## 🛠 Tech Stack
+
+Built with a focus on performance, aesthetics, and type safety.
+
+- **Core**: [React 18](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/)
+- **3D & Animation**: 
+  - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) (Canvas management)
+  - [@react-three/drei](https://github.com/pmndrs/drei) (3D helpers)
+  - [Simplex Noise](https://github.com/jwagner/simplex-noise.js) (Organic particle motion)
+  - [GSAP](https://gsap.com/) (High-performance cursor & micro-interactions)
+- **Routing**: [React Router DOM](https://reactrouter.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+## ✨ Key Features
+
+### 1. The "Living Field" Hero
+A custom 3D particle system (`src/components/LivingField.tsx`) that reacts to mouse movement.
+- **Macro Elements**: Muddy brown pebbles/rocks.
+- **Meso Elements**: Primary green spores.
+- **Micro Elements**: Off-white dust/light motes.
+- **Tech**: Uses `InstancedMesh` for rendering thousands of particles at 60fps.
+
+### 2. Organic Design System
+- **Palette**: Eucalyptus, Stone, Moss, and Sand.
+- **Typography**: Clean sans-serifs paired with editorial serif accents.
+- **Custom Cursor**: A dual-layer magnetic cursor (GSAP) that expands on interactive elements.
+
+### 3. Interactive Components
+- **Event Carousel**: Touch-friendly, swipe-enabled carousel with glassmorphism effects.
+- **Media Gallery**: Masonry-style layout for club photography.
+- **Publications**: Digital archive for the "BUNSC Scroll" and other writings.
+
+## 📂 Project Structure
+
+```bash
+src/
+├── assets/             # Images, videos, and static resources
+├── components/         # Reusable UI components
+│   ├── ui/             # Shadcn UI primitives (Button, Card, etc.)
+│   ├── LivingField.tsx # 3D Particle System
+│   ├── CustomCursor.tsx# GSAP Cursor
+│   └── ...
+├── pages/              # Route components (Home, About, Events...)
+├── lib/                # Utilities (Tailwind merger, etc.)
+└── App.tsx             # Main entry with Providers
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or bun
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/bucc-x-bunsc.git
+   cd bucc-x-bunsc
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   bun install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+## 🎨 Customization
+
+### Adjusting the 3D Field
+Modify `src/components/LivingField.tsx`:
+```typescript
+const CONFIG = {
+  colors: { ... }, // Update palette
+  counts: { ... }, // Change particle density
+  motion: { ... }  // Tweak speed and physics
+};
+```
+
+### Theme Colors
+Tailwind colors are defined in `src/index.css` using CSS variables (HSL format) and mapped in `tailwind.config.ts`.
+
+## 🤝 Contribution
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-## Project Overview
-- See the live preview https://bucc-x-bunsc.vercel.app/
-### Purpose of the website
+*Built with 💚 by the BRAC University Computer Club (BUCC) for BUNSC.*
 
-- Present BUNSC’s mission, advisors, and leadership information.
-- Showcase events, publications/blog-style content, and a media gallery.
-- Provide clear contact channels and social presence links.
-
-### Target users
-
-- Prospective members and students interested in BUNSC.
-- University stakeholders (faculty, advisors, partners).
-- Visitors looking for event highlights, publications, and media.
-
-### Core features and functionality
-
-- Multi-page navigation within a single-page app (SPA).
-- Home page hero with introduction video (fullscreen + minimized “picture-in-picture” experience).
-- Events listing with categories/status badges and representative images.
-- Publications listing (blogs and magazines) backed by curated content in code.
-- Media gallery with folder grouping and lightbox viewing.
-- Contact page with mailto and social links.
-- Dark/light theming (class-based) and responsive navigation.
-
----
-
-## Tech Stack
-
-### Frontend technologies
-
-- Framework: React 18 + TypeScript
-- Build tool: Vite 5
-- Routing: React Router DOM
-- Styling: Tailwind CSS (CSS variables + HSL token system)
-- Component system: shadcn/ui patterns + Radix UI primitives
-- Forms/validation utilities (available in dependencies): React Hook Form, Zod
-- Icons: lucide-react
-- UI feedback: Sonner + shadcn/ui Toaster
-- Data fetching layer (available): @tanstack/react-query (QueryClient provided globally)
-
-### Backend technologies
-
-- Not included in this repository.
-- The site currently runs as a static SPA; any dynamic features (forms, CMS, auth) would require an external backend.
 
