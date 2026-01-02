@@ -5,7 +5,7 @@ Production-ready single-page website for the BRAC University Natural Sciences Cl
 ---
 
 ## Project Overview
-
+- See the live preview https://bucc-x-bunsc.vercel.app/
 ### Purpose of the website
 
 - Present BUNSC’s mission, advisors, and leadership information.
