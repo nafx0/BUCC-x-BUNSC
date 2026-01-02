@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight, Hand } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -78,30 +78,76 @@ const events = eventsData.map(event => ({
 
 const EventCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const minSwipeDistance = 50;
+  const autoPlayInterval = 5000;
+
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % events.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+    resetTimeout();
+    if (!isPaused) {
+      timeoutRef.current = setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % events.length);
+        setShowSwipeHint(false);
+      }, autoPlayInterval);
+    }
+    return () => resetTimeout();
+  }, [currentIndex, isPaused]);
 
   const goToNext = () => {
-    setIsAutoPlaying(false);
     setCurrentIndex((prev) => (prev + 1) % events.length);
   };
 
   const goToPrevious = () => {
-    setIsAutoPlaying(false);
     setCurrentIndex((prev) => (prev - 1 + events.length) % events.length);
   };
 
+  const onTouchStart = (e: React.TouchEvent) => {
+    setIsPaused(true);
+    setShowSwipeHint(false);
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    setIsPaused(false);
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      goToNext();
+    }
+    if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
+
   return (
-    <div className="relative w-full max-w-6xl mx-auto px-4">
+    <div 
+      className="relative w-full max-w-6xl mx-auto px-0 md:px-4"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="relative overflow-hidden rounded-2xl">
         <div
           className="flex transition-transform duration-500 ease-out"
@@ -109,7 +155,7 @@ const EventCarousel = () => {
         >
           {events.map((event) => (
             <div key={event.id} className="w-full flex-shrink-0">
-              <Card className="border-0 bg-card/50 backdrop-blur-sm overflow-hidden">
+              <Card className="border border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden">
                 <CardContent className="p-0">
                   <div className="grid md:grid-cols-2 gap-0">
                     <div className="relative h-64 md:h-96 overflow-hidden">
@@ -120,7 +166,7 @@ const EventCarousel = () => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                     </div>
-                    <div className="flex flex-col justify-center p-8 md:p-12">
+                    <div className="flex flex-col justify-center p-6 md:p-12">
                       <span className="text-sm text-primary font-semibold mb-2">
                         {event.date}
                       </span>
@@ -138,12 +184,30 @@ const EventCarousel = () => {
           ))}
         </div>
 
+        {/* Mobile Swipe Hint */}
+        {showSwipeHint && (
+          <div className="md:hidden absolute inset-0 pointer-events-none flex items-center justify-center z-30">
+            <div className="bg-black/30 backdrop-blur-sm p-4 rounded-full text-white">
+              <Hand className="w-8 h-8 animate-swipe-gesture" />
+              <style>{`
+                @keyframes swipe-gesture {
+                  0%, 100% { transform: translateX(10px); opacity: 0.5; }
+                  50% { transform: translateX(-10px); opacity: 1; }
+                }
+                .animate-swipe-gesture {
+                  animation: swipe-gesture 1.5s ease-in-out infinite;
+                }
+              `}</style>
+            </div>
+          </div>
+        )}
+
         {/* Navigation Buttons */}
         <Button
           variant="outline"
           size="icon"
           onClick={goToPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border-2 border-primary/30 hover:border-primary bg-background/80 backdrop-blur-sm"
+          className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 rounded-full border-2 border-primary/30 hover:border-primary bg-background/80 backdrop-blur-sm z-10"
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
@@ -151,18 +215,17 @@ const EventCarousel = () => {
           variant="outline"
           size="icon"
           onClick={goToNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border-2 border-primary/30 hover:border-primary bg-background/80 backdrop-blur-sm"
+          className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 rounded-full border-2 border-primary/30 hover:border-primary bg-background/80 backdrop-blur-sm z-10"
         >
           <ChevronRight className="h-5 w-5" />
         </Button>
 
         {/* Indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
           {events.map((_, index) => (
             <button
               key={index}
               onClick={() => {
-                setIsAutoPlaying(false);
                 setCurrentIndex(index);
               }}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
