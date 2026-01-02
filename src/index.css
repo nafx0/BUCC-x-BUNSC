@@ -8,52 +8,6 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Light theme - Nature Day */
-    --background: 40 20% 97%;
-    --foreground: 150 30% 15%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 150 30% 15%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 150 30% 15%;
-
-    --primary: 158 64% 42%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 142 52% 96%;
-    --secondary-foreground: 158 64% 35%;
-
-    --muted: 142 30% 92%;
-    --muted-foreground: 150 15% 45%;
-
-    --accent: 142 52% 88%;
-    --accent-foreground: 158 64% 35%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 142 30% 88%;
-    --input: 142 30% 88%;
-    --ring: 158 64% 42%;
-
-    --radius: 0.75rem;
-
-    /* Nature gradients */
-    --gradient-nature: linear-gradient(135deg, hsl(158 64% 42%), hsl(142 70% 45%));
-    --gradient-forest: linear-gradient(180deg, hsl(158 40% 20%), hsl(150 50% 12%));
-    --gradient-earth: linear-gradient(135deg, hsl(142 40% 35%), hsl(158 60% 40%));
-    
-    /* Shadows with nature theme */
-    --shadow-nature: 0 10px 40px -10px hsl(158 64% 42% / 0.3);
-    --shadow-soft: 0 4px 12px hsl(150 20% 20% / 0.1);
-    
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
-
-  .dark {
     /* Dark theme - Nature Night (default) */
     --background: 150 20% 8%;
     --foreground: 142 30% 92%;
@@ -83,6 +37,8 @@ All colors MUST be HSL.
     --input: 150 20% 18%;
     --ring: 158 64% 52%;
 
+    --radius: 0.75rem;
+
     /* Enhanced dark gradients */
     --gradient-nature: linear-gradient(135deg, hsl(158 64% 45%), hsl(142 70% 50%));
     --gradient-forest: linear-gradient(180deg, hsl(150 30% 15%), hsl(150 50% 8%));
@@ -90,6 +46,10 @@ All colors MUST be HSL.
     
     --shadow-nature: 0 10px 50px -10px hsl(158 64% 52% / 0.4);
     --shadow-soft: 0 4px 16px hsl(150 50% 5% / 0.5);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 

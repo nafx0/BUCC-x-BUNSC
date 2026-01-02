@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoIcon from "@/assets/icon.jpg";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,21 +17,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDarkMode]);
-
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about" },
     { name: "Events", path: "/events" },
     { name: "Publications", path: "/publications" },
     { name: "Media", path: "/media" },
-    { name: "Contact Us", path: "/contact" },
   ];
 
   return (
@@ -72,17 +62,11 @@ const Navbar = () => {
 
           {/* Theme Toggle & Mobile Menu Button */}
           <div className="flex items-center space-x-3">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="rounded-full border-2 border-primary/30 hover:border-primary hover:bg-primary/10"
+            <Button 
+              asChild 
+              className="hidden lg:flex bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
             >
-              {isDarkMode ? (
-                <Sun className="h-5 w-5 text-primary" />
-              ) : (
-                <Moon className="h-5 w-5 text-primary" />
-              )}
+              <Link to="/contact">Contact Us</Link>
             </Button>
 
             <Button
@@ -108,12 +92,27 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="block px-4 py-3 rounded-lg hover:bg-accent/50 transition-colors"
+                  className={`block px-4 py-3 rounded-lg transition-colors ${
+                    location.pathname === item.path
+                      ? "bg-accent text-accent-foreground"
+                      : "hover:bg-accent/50"
+                  }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <span className="font-medium">{item.name}</span>
                 </Link>
               ))}
+              <Link
+                to="/contact"
+                className={`block px-4 py-3 rounded-lg transition-colors ${
+                  location.pathname === "/contact"
+                    ? "bg-accent text-accent-foreground"
+                    : "hover:bg-accent/50"
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <span className="font-medium text-primary">Contact Us</span>
+              </Link>
             </div>
           </div>
         )}
