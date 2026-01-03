@@ -4,6 +4,8 @@
 
 A premium, interactive digital experience for the BRAC University Natural Sciences Club. This project bridges the gap between scientific curiosity and modern web design, featuring a "Living Field" 3D environment, organic minimalism, and a seamless user experience.
 
+## Live Site
+- https://bunsc.vercel.app/
 ## 🌿 Project Vision
 
 **"Where Ideas Take Root."**
