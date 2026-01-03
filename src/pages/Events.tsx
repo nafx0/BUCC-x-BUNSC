@@ -121,7 +121,7 @@ const Events = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
-      <section className="pt-48 pb-24 px-6 md:px-12">
+      <section className="pt-32 md:pt-48 pb-16 md:pb-24 px-6 md:px-12">
         <div className="container mx-auto max-w-5xl">
           <FadeIn>
             <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-12">
@@ -136,12 +136,12 @@ const Events = () => {
         </div>
       </section>
       
-      <section className="px-6 md:px-12 pb-24">
+      <section className="px-6 md:px-12 pb-16 md:pb-24">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-16">
             {events.map((event, index) => (
-              <FadeIn key={index} delay={index * 100}>
-                <div className="group cursor-pointer hover-inspection p-4 rounded-2xl transition-all duration-500">
+              <FadeIn key={index} delay={index * 100} className="h-full">
+                <div className="group cursor-pointer hover-inspection p-4 rounded-2xl transition-all duration-500 h-full flex flex-col">
                   <div className="aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-secondary/20">
                     <img
                       src={getEventImage(event.folderName)}

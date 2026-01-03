@@ -73,7 +73,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
       {/* Header Section */}
-      <section className="pt-48 pb-24 px-6 md:px-12">
+      <section className="pt-32 md:pt-48 pb-16 md:pb-24 px-6 md:px-12">
         <div className="container mx-auto max-w-5xl">
           <FadeIn>
             <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-12">
@@ -89,7 +89,7 @@ const About = () => {
       </section>
 
       {/* Advisors Section - Clean & Minimal */}
-      <section className="py-24 border-t border-white/5">
+      <section className="py-16 md:py-24 border-t border-white/5">
         <div className="container mx-auto px-6 md:px-12">
           <FadeIn>
             <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-16">
@@ -116,8 +116,8 @@ const About = () => {
                 email: "tawsif.rashid@bracu.ac.bd"
               }
             ].map((advisor, index) => (
-              <FadeIn key={index} delay={index * 200}>
-                <div className="group hover-inspection p-6 rounded-2xl bg-secondary/5 transition-all duration-500">
+              <FadeIn key={index} delay={index * 200} className="h-full">
+                <div className="group hover-inspection p-6 rounded-2xl bg-secondary/5 transition-all duration-500 h-full flex flex-col">
                   <div className="aspect-square overflow-hidden rounded-full mb-6 bg-secondary/20 w-32 h-32 mx-auto">
                     <img 
                       src={advisor.image} 
@@ -147,7 +147,7 @@ const About = () => {
       </section>
 
       {/* Leadership Section - Editorial Grid */}
-      <section className="py-24 border-t border-white/5">
+      <section className="py-16 md:py-24 border-t border-white/5">
         <div className="container mx-auto px-6 md:px-12">
           <FadeIn>
             <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-16">
@@ -157,7 +157,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {panelMembers.map((member, index) => (
-              <FadeIn key={index} delay={index * 100}>
+              <FadeIn key={index} delay={index * 100} className="h-full">
                 <div className="p-6 rounded-2xl bg-secondary/5 hover-inspection transition-all duration-500 group h-full flex flex-col justify-between">
                   <div>
                     <p className="text-xs font-medium tracking-widest uppercase text-primary mb-4 opacity-60 group-hover:opacity-100 transition-opacity">
@@ -181,7 +181,7 @@ const About = () => {
       </section>
 
       {/* Legacy Section - Horizontal Scroll */}
-      <section className="py-24 border-t border-white/5 overflow-hidden">
+      <section className="py-16 md:py-24 border-t border-white/5 overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 mb-12">
           <FadeIn>
             <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground">

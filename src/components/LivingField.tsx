@@ -209,6 +209,45 @@ export default function LivingField({
     mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
   };
 
+  // Gyroscopic effect for mobile
+  React.useEffect(() => {
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      // Gamma: Left/Right tilt (-90 to 90)
+      // Beta: Front/Back tilt (-180 to 180)
+      const { gamma, beta } = event;
+      
+      if (gamma !== null && beta !== null) {
+        // Normalize gamma (-45 to 45 degrees -> -1 to 1)
+        const x = Math.min(Math.max(gamma, -45), 45) / 45;
+        
+        // Normalize beta (0 to 90 degrees -> -1 to 1) - assuming holding phone somewhat upright
+        // Adjusting range to be more natural for viewing
+        const y = Math.min(Math.max(beta - 45, -45), 45) / 45;
+
+        mouse.current.x = x;
+        mouse.current.y = -y; // Invert Y to match screen coordinates
+      }
+    };
+
+    // Check if device orientation is supported and request permission if needed (iOS 13+)
+    if (typeof DeviceOrientationEvent !== 'undefined') {
+      if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+        // iOS 13+ requires permission, but we can't request it automatically on load.
+        // It usually needs a user interaction. For now, we'll just try to add the listener
+        // if permission was already granted or if it's not required.
+        // A button to enable motion might be needed for iOS 13+ if not already handled.
+        // For this implementation, we'll assume standard support or already granted.
+         window.addEventListener('deviceorientation', handleOrientation);
+      } else {
+        window.addEventListener('deviceorientation', handleOrientation);
+      }
+    }
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+    };
+  }, []);
+
   return (
     <div
       className="relative w-full h-screen bg-background overflow-hidden"

@@ -34,7 +34,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex items-center justify-between h-24">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-full overflow-hidden transition-transform duration-500 group-hover:scale-105">

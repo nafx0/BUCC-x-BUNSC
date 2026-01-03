@@ -82,7 +82,7 @@ const Home = () => {
       </ErrorBoundary>
 
       {/* Manifesto Section - Editorial Typography */}
-      <section id="manifesto" className="py-32 md:py-48 relative overflow-hidden">
+      <section id="manifesto" className="py-24 md:py-48 relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12">
           <div className="max-w-7xl mx-auto">
             <FadeIn>
@@ -193,7 +193,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section - Belonging Moment */}
-      <section className="py-32 md:py-48 relative">
+      <section className="py-24 md:py-48 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-background pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 text-center relative z-10">
           <FadeIn>

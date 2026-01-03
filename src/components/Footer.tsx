@@ -4,9 +4,9 @@ import logoIcon from "@/assets/icon.jpg";
 
 const Footer = () => {
   return (
-    <footer className="bg-background border-t border-white/5 pt-24 pb-12">
+    <footer className="bg-background border-t border-white/5 pt-16 md:pt-24 pb-8 md:pb-12">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 md:mb-16">
           {/* Brand Section */}
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-6 group w-fit">

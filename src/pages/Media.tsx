@@ -39,7 +39,7 @@ const Media = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
-      <section className="pt-48 pb-24 px-6 md:px-12">
+      <section className="pt-32 md:pt-48 pb-16 md:pb-24 px-6 md:px-12">
         <div className="container mx-auto max-w-5xl">
           <FadeIn>
             <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-12">
@@ -54,10 +54,10 @@ const Media = () => {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 pb-24 border-t border-white/5">
-        <div className="container mx-auto pt-24">
+      <section className="px-6 md:px-12 pb-16 md:pb-24 border-t border-white/5">
+        <div className="container mx-auto pt-16 md:pt-24">
           {Object.entries(organizedImages).map(([folderName, images], sectionIndex) => (
-            <div key={folderName} className="mb-32 last:mb-0">
+            <div key={folderName} className="mb-16 md:mb-32 last:mb-0">
               <FadeIn>
                 <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-12">
                   {folderName}

@@ -111,7 +111,7 @@ const Publications = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
-      <section className="pt-48 pb-24 px-6 md:px-12">
+      <section className="pt-32 md:pt-48 pb-16 md:pb-24 px-6 md:px-12">
         <div className="container mx-auto max-w-5xl">
           <FadeIn>
             <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-12">
@@ -126,17 +126,17 @@ const Publications = () => {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 pb-24 border-t border-white/5">
-        <div className="container mx-auto pt-24">
+      <section className="px-6 md:px-12 pb-16 md:pb-24 border-t border-white/5">
+        <div className="container mx-auto pt-16 md:pt-24">
           <FadeIn>
             <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-16">
               Articles
             </h2>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-16">
             {blogs.map((blog, index) => (
-              <FadeIn key={index} delay={index * 100}>
-                <div className="group cursor-pointer hover-inspection p-4 rounded-2xl transition-all duration-500">
+              <FadeIn key={index} delay={index * 100} className="h-full">
+                <div className="group cursor-pointer hover-inspection p-4 rounded-2xl transition-all duration-500 h-full flex flex-col">
                   <div className="aspect-[3/2] overflow-hidden rounded-xl mb-6 bg-secondary/20">
                     <img
                       src={getPublicationImage(blog.folderName)}
@@ -170,8 +170,8 @@ const Publications = () => {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 pb-24 border-t border-white/5">
-        <div className="container mx-auto pt-24">
+      <section className="px-6 md:px-12 pb-16 md:pb-24 border-t border-white/5">
+        <div className="container mx-auto pt-16 md:pt-24">
           <FadeIn>
             <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-16">
               Publications
@@ -179,8 +179,8 @@ const Publications = () => {
           </FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {magazines.map((magazine, index) => (
-              <FadeIn key={index} delay={index * 100}>
-                <div className="group cursor-pointer hover-inspection p-4 rounded-2xl transition-all duration-500">
+              <FadeIn key={index} delay={index * 100} className="h-full">
+                <div className="group cursor-pointer hover-inspection p-4 rounded-2xl transition-all duration-500 h-full flex flex-col">
                   <div className="aspect-[3/4] overflow-hidden rounded-lg mb-6 shadow-sm bg-secondary/20 relative">
                     <img
                       src={getPublicationImage(magazine.folderName)}
