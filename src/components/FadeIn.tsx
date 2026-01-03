@@ -31,12 +31,13 @@ const FadeIn = ({
       { threshold: 0.1, rootMargin: "50px" }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const element = ref.current;
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (ref.current) observer.unobserve(ref.current);
+      if (element) observer.unobserve(element);
     };
   }, []);
 

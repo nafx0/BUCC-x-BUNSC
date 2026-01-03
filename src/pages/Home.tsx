@@ -5,46 +5,51 @@ import { Button } from "@/components/ui/button";
 import EventCarousel from "@/components/EventCarousel";
 import LivingField from "@/components/LivingField";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import FadeIn from "@/components/FadeIn";
 import heroImage from "@/assets/hero-nature.jpg";
 import introVideo from "@/assets/intro.mp4";
 import videoThumbnail from "@/assets/hero.jpg";
 
-const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.1 }
-    );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+const HeroContent = ({ navigate }: { navigate: any }) => (
+  <div className="relative z-10 container mx-auto px-6 md:px-12 h-full flex items-center justify-center pointer-events-none">
+    <div className="max-w-5xl mx-auto text-center pointer-events-auto">
+      <FadeIn>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground mb-8 leading-[1.1] animate-reveal drop-shadow-2xl">
+          BRAC University <br />
+          <span className="text-primary italic font-serif">Natural Sciences Club</span>
+        </h1>
+      </FadeIn>
+      
+      <FadeIn delay={200}>
+        <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed mb-12 animate-reveal" style={{ animationDelay: '0.2s' }}>
+          To discover the marvels of science,<br className="hidden md:block" />
+          and to become a part of the community of inquisitive minds.
+        </p>
+      </FadeIn>
 
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-1000 ease-out ${
-        isVisible ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-10 blur-sm"
-      } ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
+      <FadeIn delay={400}>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-reveal" style={{ animationDelay: '0.4s' }}>
+          <button 
+            onClick={() => navigate("/contact")}
+            className="group relative px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium text-lg transition-all duration-500 hover:shadow-[0_0_30px_-5px_rgba(89,166,115,0.4)] hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Become a Member
+            <ArrowRight className="inline-block ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+          </button>
+          <button 
+            onClick={() => document.getElementById('manifesto')?.scrollIntoView({ behavior: 'smooth' })}
+            className="text-foreground/90 hover:text-foreground text-lg font-medium transition-colors flex items-center gap-2 group"
+          >
+            Explore Our Vision
+            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
+        </div>
+      </FadeIn>
     </div>
-  );
-};
+  </div>
+);
 
 const Home = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -65,44 +70,14 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
       {/* Hero Section - Living Field of Curiosity */}
-      <ErrorBoundary>
+      <ErrorBoundary fallback={
+        <div className="relative h-screen w-full overflow-hidden bg-background">
+          <img src={heroImage} alt="Hero" className="absolute inset-0 w-full h-full object-cover opacity-30" />
+          <HeroContent navigate={navigate} />
+        </div>
+      }>
         <LivingField>
-          <div className="relative z-10 container mx-auto px-6 md:px-12 h-full flex items-center justify-center pointer-events-none">
-            <div className="max-w-5xl mx-auto text-center pointer-events-auto">
-              <FadeIn>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground mb-8 leading-[1.1] animate-reveal drop-shadow-2xl">
-                  BRAC University <br />
-                  <span className="text-primary italic font-serif">Natural Sciences Club</span>
-                </h1>
-              </FadeIn>
-              
-              <FadeIn delay={200}>
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed mb-12 animate-reveal" style={{ animationDelay: '0.2s' }}>
-                  To discover the marvels of science,<br className="hidden md:block" />
-                  and to become a part of the community of inquisitive minds.
-                </p>
-              </FadeIn>
-
-              <FadeIn delay={400}>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-reveal" style={{ animationDelay: '0.4s' }}>
-                  <button 
-                    onClick={() => navigate("/contact")}
-                    className="group relative px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium text-lg transition-all duration-500 hover:shadow-[0_0_30px_-5px_rgba(89,166,115,0.4)] hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    Become a Member
-                    <ArrowRight className="inline-block ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                  </button>
-                  <button 
-                    onClick={() => document.getElementById('manifesto')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-foreground/90 hover:text-foreground text-lg font-medium transition-colors flex items-center gap-2 group"
-                  >
-                    Explore Our Vision
-                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </button>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
+          <HeroContent navigate={navigate} />
         </LivingField>
       </ErrorBoundary>
 

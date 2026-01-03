@@ -45,15 +45,8 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
-    cursor: none; /* Hide default cursor for custom one */
   }
 
-  /* Restore cursor on touch devices or if custom cursor fails/is disabled */
-  @media (pointer: coarse) {
-    body {
-      cursor: auto;
-    }
-  }
 
   /* Hide lovable badge */
   #lovable-badge {

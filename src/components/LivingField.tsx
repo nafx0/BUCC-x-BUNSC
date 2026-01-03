@@ -1,8 +1,6 @@
-import React, { useRef, useMemo, useState, useEffect, Suspense } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import React, { useRef, useMemo, Suspense } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import {
-  Text,
-  Float,
   Instance,
   Instances,
   Environment,
@@ -21,9 +19,9 @@ const CONFIG = {
     cta: "#59A673",    // Site Primary
   },
   counts: {
-    macro: 25,
-    meso: 150,
-    micro: 600,
+    macro: 15,
+    meso: 75,
+    micro: 300,
   },
   motion: {
     driftSpeed: 0.03,
@@ -215,6 +213,7 @@ export default function LivingField({
     <div
       className="relative w-full h-screen bg-background overflow-hidden"
       onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseMove}
     >
       <Canvas
         camera={{ position: [0, 0, 8], fov: 45 }}

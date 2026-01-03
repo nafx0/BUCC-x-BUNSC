@@ -92,8 +92,6 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground/60">
           <p>&copy; {new Date().getFullYear()} BRAC University Natural Sciences Club.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-muted-foreground transition-colors">Privacy</a>
-            <a href="#" className="hover:text-muted-foreground transition-colors">Terms</a>
           </div>
         </div>
       </div>

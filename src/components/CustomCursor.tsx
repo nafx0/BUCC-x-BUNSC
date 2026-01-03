@@ -39,23 +39,28 @@ const CustomCursor = () => {
     document.addEventListener("mouseenter", onMouseEnter);
     window.addEventListener("mouseover", onMouseOver);
 
+    // Hide default cursor
+    document.body.style.cursor = 'none';
+
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("mouseenter", onMouseEnter);
       window.removeEventListener("mouseover", onMouseOver);
+      // Restore default cursor
+      document.body.style.cursor = 'auto';
     };
   }, []);
 
-  // Don't render on touch devices to prevent double cursors or weird behavior
-  if (typeof window !== 'undefined' && window.matchMedia("(pointer: coarse)").matches) return null;
+  // Don't render on touch devices or if user prefers reduced motion
+  if (typeof window !== 'undefined' && (window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return null;
 
   return (
     <>
       {/* Inner Dot - The precise pointer */}
       <div
         ref={cursorRef}
-        className={`fixed top-0 left-0 w-2 h-2 bg-primary rounded-full pointer-events-none z-[9999] transition-opacity duration-300 ${
+        className={`fixed top-0 left-0 w-2 h-2 bg-primary rounded-full pointer-events-none z-[1001] transition-opacity duration-300 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -63,7 +68,7 @@ const CustomCursor = () => {
       {/* Outer Ring - The magnetic field */}
       <div
         ref={followerRef}
-        className={`fixed top-0 left-0 rounded-full border pointer-events-none z-[9998] transition-all duration-300 ease-out ${
+        className={`fixed top-0 left-0 rounded-full border pointer-events-none z-[1000] transition-all duration-300 ease-out ${
           isVisible ? "opacity-100" : "opacity-0"
         } ${
           isHovering 
